@@ -155,14 +155,13 @@ public class AffiliateService {
         Long total = jdbc.queryForObject(
                 "SELECT COUNT(*) FROM recharge_order WHERE user_id = ?", Long.class, userId);
         List<RechargeRow> list = jdbc.query("""
-                SELECT id, out_trade_no, amount, rebate_amount, balance_after, paid_at
+                SELECT id, out_trade_no, amount, balance_after, paid_at
                 FROM recharge_order WHERE user_id = ?
                 ORDER BY paid_at DESC
                 LIMIT ? OFFSET ?
                 """, (rs, rowNum) -> new RechargeRow(
                 Long.toString(rs.getLong("id")), rs.getString("out_trade_no"),
-                money(rs.getBigDecimal("amount")), money(rs.getBigDecimal("rebate_amount")),
-                money(rs.getBigDecimal("balance_after")),
+                money(rs.getBigDecimal("amount")), money(rs.getBigDecimal("balance_after")),
                 rs.getTimestamp("paid_at").toInstant().toString()),
                 userId, pageData.size(), pageData.offset());
         return new PageData<>(pageData.page(), pageData.size(), total == null ? 0 : total, list);
@@ -200,7 +199,7 @@ public class AffiliateService {
     }
     public record Rebate(String id, String inviteePhone, String sourceOrderNo, String amount, String createdAt) {
     }
-    public record RechargeRow(String id, String outTradeNo, String amount, String rebateAmount,
+    public record RechargeRow(String id, String outTradeNo, String amount,
                               String balanceAfter, String paidAt) {
     }
     public record Page(int page, int size, long offset) {
