@@ -379,7 +379,7 @@ Header：Idempotency-Key，必填，长度 1–64。
 { "amount": "100.00" }
 ```
 
-返回充值订单号、充值金额、本单返利金额、充值后余额快照和成功时间。
+返回充值流水号、充值金额、充值成功状态、充值后余额快照和成功时间。响应中不返回本单返利金额；返利信息仅对返利归属邀请人及管理员开放。
 
 - 金额必须大于 0 且最多两位小数。
 - 返利由服务端按充值金额 × 10% 计算并四舍五入到分。
@@ -526,7 +526,7 @@ GET /api/v1/admin/rebate-ledgers?page=1&pageSize=20
 <a id="schemarechargeordervo"></a>
 
 ```json
-{ "id": "5001", "outTradeNo": "R202610030001", "amount": "100.00", "rebateAmount": "10.00", "balanceAfter": "200.00", "paidAt": "2026-10-03T08:30:00Z" }
+{ "id": "5001", "outTradeNo": "R202610030001", "amount": "100.00", "balanceAfter": "200.00", "paidAt": "2026-10-03T08:30:00Z" }
 ```
 
 | 名称 | 类型 | 必选 | 说明 |
@@ -534,7 +534,6 @@ GET /api/v1/admin/rebate-ledgers?page=1&pageSize=20
 | id | string | 是 | 充值订单 ID。 |
 | outTradeNo | string | 是 | 服务端生成的订单号。 |
 | amount | string | 是 | 充值金额。 |
-| rebateAmount | string | 是 | 本单返利，无返利时为 0.00。 |
 | balanceAfter | string | 是 | 充值完成后的余额快照。 |
 | paidAt | string | 是 | 模拟成功时间。 |
 
@@ -580,7 +579,7 @@ GET /api/v1/admin/rebate-ledgers?page=1&pageSize=20
 
 ## 2.4 接口级待确认清单
 
-无。接口按已确认的 Demo 规则定义；具体框架依赖版本在编码阶段按项目构建环境确定。
+无。接口按已确认的 Demo 规则定义。实现基线为 JDK 17、Spring Boot 4.1.1、Vue 3 + Vite；H2 使用内存模式。
 
 ---
 
@@ -862,4 +861,3 @@ endif
 - 可配置返利比例、邀请人专属比例、返利有效期和封顶规则。
 - 多级分销、代理等级、团队业绩和自动出款。
 - 用户管理写操作和返利管理写操作。
-

@@ -1,0 +1,32 @@
+server:
+  port: 8080
+  servlet:
+    session:
+      cookie:
+        http-only: true
+        same-site: lax
+        secure: false
+
+spring:
+  application:
+    name: affiliate-demo
+  datasource:
+    url: jdbc:h2:mem:affiliate-demo;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  sql:
+    init:
+      mode: always
+  jackson:
+    default-property-inclusion: non_null
+
+app:
+  frontend-origin: http://localhost:5173
+  demo:
+    user-a-phone: 13800000001
+    user-a-password: DemoPass123
+    user-b-phone: 13800000002
+    user-b-password: DemoPass123
+    admin-phone: 13800000003
+    admin-password: AdminPass123
