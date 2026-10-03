@@ -2,6 +2,8 @@
 
 [简体中文](README.md) | English
 
+![Qinghe Plan single-level referral rebate demo cover](docs/assets/affiliate-rebate-cover.png)
+
 A full-stack demo for learning and demonstrating a single-level referral rebate flow. A user invites a new user with an invitation code. Whenever the invitee completes a simulated recharge, the inviter receives a 10% rebate.
 
 This project demonstrates the business flow, data relationships, and API boundaries. It does not connect to a real payment provider.
